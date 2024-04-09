@@ -39,9 +39,9 @@
         <tbody>
         <% abandonedCartObj.forEach(abandonedCart => { %>
             <tr>
-                <td><%= abandonedCart.customer.customerID %></td>
-                <td><%= abandonedCart.customer.profile.firstName + " " + abandonedCart.customer.profile.lastName %></td>
-                <td><%= abandonedCart.customer.profile.abandonedCartToken %></td>
+                <td><%= abandonedCart.customerID %></td>
+                <td><%= abandonedCart.profile.firstName + " " + abandonedCart.profile.lastName %></td>
+                <td><%= abandonedCart.profile.abandonedCartToken %></td>
                 <% for(var i=0; i < abandonedCart.basket.lineItems.length; i++) { %>
                     <% for(var j=0; j < abandonedCart.basket.lineItems[i].productLineItem.length; j++) { %>
                         <td><%= abandonedCart.basket.lineItems[i].productLineItem[j].id %></td>

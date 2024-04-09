@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const AbandonedCartModel = require('./models/abandonCartModel');
 const aCService = require("./services/abandonCartService");
 const bodyParser = require('body-parser');
+const req = require("express/lib/request");
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -20,23 +21,30 @@ app.use(express.urlencoded({extended: false}));
 
 // get all abandoned carts and render page
 app.get('/', async (req, res) => {
-    console.log("get")
     const carts = await AbandonedCartModel.find();
-    //res.render('index', {abandonedCartObj: carts});
-    res.json( [carts] )
+    res.render('index', {abandonedCartObj: carts});
+    //res.json( [carts] )
 })
 
 // create a new abandoned cart obj in db
 app.post('/abandonedCart', async (req, res) => {
-    console.log("post")
-    console.log(req.body);
+
     const abandonedCartObj = aCService.handleJSON( req.body );
-    console.log(JSON.stringify(abandonedCartObj));
+    console.log("Adding new AbandonedCart for " + abandonedCartObj.customerID);
+    const acModel = new AbandonedCartModel(abandonedCartObj);
+    await acModel.save();
 
-    const test = new AbandonedCartModel(abandonedCartObj);
-    const response = await test.save();
-    //await AbandonedCartModel.create({abandonedCartObj: abandonedCartObj});
+    res.redirect('/');
+})
 
+app.delete('/abandonedCart/delete', async (req, res) => {
+
+    console.log("deleting ID: " + req.body.customerID);
+    await AbandonedCartModel.deleteOne({ customerID: req.body.customerID } ).then(function(){
+        console.log("Data deleted"); // Success
+    }).catch(function(error){
+        console.log(error); // Failure
+    });;
     res.redirect('/');
 })
 

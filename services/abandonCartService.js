@@ -21,14 +21,12 @@ function abandonCartService(){
 
 function handleJSON( body ){
     let abandonedCart = {
-        customer : {
-            customerID : body.customer.customerID,
-            profile : {
-                email : body.customer.profile.email,
-                firstName : body.customer.profile.firstName,
-                lastName : body.customer.profile.lastName,
-                abandonedCartToken : body.customer.profile.abandonedCartToken
-            }
+        customerID : body.customerID,
+        profile : {
+            email : body.profile.email,
+            firstName : body.profile.firstName,
+            lastName : body.profile.lastName,
+            abandonedCartToken : body.profile.abandonedCartToken
         },
         basket :{
             lineItems: [{
@@ -39,13 +37,9 @@ function handleJSON( body ){
 
     // loop through and populate product data
     let liLen = body.basket.lineItems.length;
-
-    console.log("liLen " + liLen);
     for(let i = 0; i < liLen; i++) {
 
         let pliLen = body.basket.lineItems[i].productLineItem.length;
-        console.log("pliLen " + liLen);
-
         for (let j = 0; j < pliLen; j++) {
 
             let pli = {
@@ -53,11 +47,11 @@ function handleJSON( body ){
                 id: body.basket.lineItems[i].productLineItem[j].id,
                 price: body.basket.lineItems[i].productLineItem[j].price
             };
-            console.log(pli);
+
             abandonedCart.basket.lineItems[i].productLineItem[j] = pli;
         }
     }
-    console.log("\n\nabandonedCartJSON\n\n" + JSON.stringify(abandonedCart));
+    //console.log("\n\nabandonedCartJSON\n\n" + JSON.stringify(abandonedCart));
     return abandonedCart;
 }
 

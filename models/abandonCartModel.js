@@ -3,31 +3,29 @@ const aCService = require('../services/abandonCartService');
 
 // define schema, save customer details and cart details
 const abandonedCartSchema = mongoose.Schema({
-    customer : {
-        customerID : {
+    customerID : {
+        type: { String },
+        required: true,
+        default: aCService.abandonCartService().customerID
+    },
+    profile : {
+        email : {
             type: { String },
             required: true,
-            default: aCService.abandonCartService().customerID
+            default: "test@email.com"
         },
-        profile : {
-            email : {
-                type: { String },
-                required: true,
-                default: "test@email.com"
-            },
-            firstName : {
-                type: { String },
-                default: "firstName"
-            },
-            lastName : {
-                type: { String },
-                default: "lastName"
-            },
-            abandonedCartToken : {
-                type: { String },
-                required: true,
-                default: aCService.abandonCartService().abandonCartTokenID
-            }
+        firstName : {
+            type: { String },
+            default: "firstName"
+        },
+        lastName : {
+            type: { String },
+            default: "lastName"
+        },
+        abandonedCartToken : {
+            type: {String},
+            required: true,
+            default: aCService.abandonCartService().abandonCartTokenID
         }
     },
     basket : {
