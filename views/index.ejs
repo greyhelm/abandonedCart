@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=EB+Garamond:400,500,700" rel="stylesheet">
+    <style type="text/css">
+        body {
+            display: flex;
+            flex-flow: column wrap;
+            justify-content: center;
+            align-items: center;
+            background: #8a8686;
+            color: #fff;
+            font-family: 'Montserrat', 'Tahoma';
+        }
+        h1 {
+            font-size: 18px;
+            font-weight: 400;
+        }
+    </style>
+    <title>Abandoned Carts Page</title>
+</head>
+<body>
+<div class="container">
+    <h1>Abandoned Carts</h1>
+
+    <table class="table table-striped table-responsive">
+        <thead>
+        <tr>
+            <th>Customer ID</th>
+            <th>Customer Name</th>
+            <th>Abandoned Cart Token</th>
+            <th>Products</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% abandonedCartObj.forEach(abandonedCart => { %>
+            <tr>
+                <td><%= abandonedCart.customer.customerID %></td>
+                <td><%= abandonedCart.customer.profile.firstName + " " + abandonedCart.customer.profile.lastName %></td>
+                <td><%= abandonedCart.customer.profile.abandonedCartToken %></td>
+            </tr>
+        <% }) %>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
