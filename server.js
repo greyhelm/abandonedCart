@@ -49,7 +49,7 @@ app.delete('/abandonedCart/delete', async (req, res) => {
         console.log("Data deleted"); // Success
     }).catch(function(error){
         console.log(error); // Failure
-    });;
+    });
     res.redirect('/');
 })
 
