@@ -23,7 +23,12 @@ app.use(express.urlencoded({extended: false}));
 app.get('/', async (req, res) => {
     const carts = await AbandonedCartModel.find();
     res.render('index', {abandonedCartObj: carts});
-    //res.json( [carts] )
+})
+
+// get all abandoned carts and return JSON
+app.get('/abandonedCart', async (req, res) => {
+    const carts = await AbandonedCartModel.find();
+    res.json( [carts] )
 })
 
 // create a new abandoned cart obj in db

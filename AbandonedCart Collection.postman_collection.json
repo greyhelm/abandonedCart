@@ -7,7 +7,7 @@
 	},
 	"item": [
 		{
-			"name": "Get",
+			"name": "Get RenderView",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -22,7 +22,22 @@
 			"response": []
 		},
 		{
-			"name": "Post",
+			"name": "Get JSON",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000",
+					"host": [
+						"localhost"
+					],
+					"port": "3000"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post JSON",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -49,7 +64,7 @@
 			"response": []
 		},
 		{
-			"name": "Delete",
+			"name": "Delete ByCustomerID",
 			"request": {
 				"method": "DELETE",
 				"header": [],
