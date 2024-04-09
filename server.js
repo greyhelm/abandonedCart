@@ -22,7 +22,8 @@ app.use(express.urlencoded({extended: false}));
 app.get('/', async (req, res) => {
     console.log("get")
     const carts = await AbandonedCartModel.find();
-    res.render('index', {abandonedCartObj: carts});
+    //res.render('index', {abandonedCartObj: carts});
+    res.json( [carts] )
 })
 
 // create a new abandoned cart obj in db
@@ -38,7 +39,6 @@ app.post('/abandonedCart', async (req, res) => {
 
     res.redirect('/');
 })
-
 
 
 // Start server
