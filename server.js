@@ -1,10 +1,16 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const ShortUrl = require('./models/shortUrl');
+const AbandonedCart = require('./models/abandonCartModel');
+const aCService = require("./services/abandonCartService");
+const bodyParser = require('body-parser');
 const app = express();
+const port = process.env.PORT || 3000;
+
+//used to parse JSON data from req.body
+app.use(bodyParser.json());
 
 // connect to db and handle errors
-mongoose.connect('mongodb://localhost:27017/shortUrl', {
+mongoose.connect('mongodb://localhost:27017/abandonedCart', {
     useNewUrlParser: true, useUnifiedTopology: true
 }).then(res => console.log("Connected to DB")).catch(err => console.log(err))
 
@@ -12,30 +18,31 @@ mongoose.connect('mongodb://localhost:27017/shortUrl', {
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({extended: false}));
 
-// get all urls and render page
+app.get('/test', (req, res) => {
+    res.json({ message: 'Hello, World!' });
+});
+
+// get all abandoned carts and render page
 app.get('/', async (req, res) => {
     console.log("get")
-    const urls = await ShortUrl.find();
-    res.render('index', {shortUrls: urls});
+    const carts = await AbandonedCart.find();
+    res.render('index', {abandonedCartObj: carts});
 })
 
-// create a new url in db
-app.post('/shortUrl', async (req, res) => {
+// create a new abandoned cart obj in db
+app.post('/abandonedCart', async (req, res) => {
     console.log("post")
-    await ShortUrl.create({original: req.body.original});
+    console.log(req.body);
+    const abandonedCartObj = aCService.handleJSON( req.body );
+    console.log(JSON.stringify(abandonedCartObj));
+    await AbandonedCart.create({abandonedCartObj: abandonedCartObj});
 
     res.redirect('/');
 })
 
-// find the original url associated with short url and redirect
-app.get('/:shortUrl', async (req, res) => {
-    const shortUrl = await ShortUrl.findOne({ short: req.params.shortUrl })
-    if (shortUrl == null) return res.sendStatus(404)
 
-    shortUrl.linkUsage++
-    shortUrl.save()
 
-    res.redirect(shortUrl.original)
-})
-
-app.listen(3000);
+// Start server
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+});

@@ -32,7 +32,7 @@ const abandonedCartSchema = mongoose.Schema({
     },
     basket : {
         lineItems: [{
-            productLineItem:{
+            productLineItem: [{
                 name: {
                     type: { String },
                     default: "ProductName"
@@ -47,7 +47,7 @@ const abandonedCartSchema = mongoose.Schema({
                     required: true,
                     default: 100
                 }
-            }
+            }]
             //giftCertificateLineItem:{}
         }]
     }

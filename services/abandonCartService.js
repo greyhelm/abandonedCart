@@ -41,12 +41,12 @@ function handleJSON( body ){
     let liLen = body.basket.lineItems.length;
 
     console.log("liLen " + liLen);
-    for(let i = 0; i > liLen; i++) {
+    for(let i = 0; i < liLen; i++) {
 
         let pliLen = body.basket.lineItems[i].productLineItem.length;
         console.log("pliLen " + liLen);
 
-        for (let j = 0; j > pliLen; j++) {
+        for (let j = 0; j < pliLen; j++) {
 
             let pli = {
                 name: body.basket.lineItems[i].productLineItem[j].name,
@@ -57,7 +57,7 @@ function handleJSON( body ){
             abandonedCart.basket.lineItems[i].productLineItem[j] = pli;
         }
     }
-    console.log("\n\nabandonedCartJSON\n\n" + abandonedCart);
+    console.log("\n\nabandonedCartJSON\n\n" + JSON.stringify(abandonedCart));
     return abandonedCart;
 }
 
