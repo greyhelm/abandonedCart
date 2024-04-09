@@ -1,0 +1,61 @@
+Abandoned Cart Implementation
+
+- Abandoned carts should be tracked
+- Customer should be informed with a popup one hour later
+- Customer should receive a reminder email one day later
+- If the customer hasn't completed the purchase after one week,
+ send the cart and customer details to the third-party loyalty integration.
+ 
+ 
+= Two main flows of Logic;
+- Authenticated User (customer.authenticated)
+- Guest User (customer.anonymous)
+
+= Authenticated User
+	~Tracking Abandoned Cart
+		- Create new Custom Attributes
+			= Profile
+				- abandondedCartToken (String)
+				- hasAbandondedCart (boolean)
+			= Session
+				- sessionHasAbandonedCart (boolean)
+				
+		- Create new Custom Object
+			AbandonedCart
+				- Customer details
+				- List of products in Cart at abandonment
+				- timeOfAbandonment (Date)
+				- isAbandondedCartEmailSent (boolean)
+				
+		- Flag that cart is not empty when session expires (sessionHasAbandonedCart)
+			- Frontend Event trigger/handler when user goes back from checkout page
+		
+		- Store Basket.ProductList as token in custom attr for customer.profile
+			-> Write Function to take product uuid's and generate unique token and can use token to retrieve list of products.
+				= Must handle ProductLineItem, BonusDiscountLineItem, GiftCertificateLineItem
+				
+		- Create new AbandonedCart Object with customer details and ProductList
+		
+	~ Customer should be informed with a popup one hour later
+		- Check session.custom.sessionHasAbandonedCart
+			- trigger pop up 
+	
+	~ Customer should receive a reminder email one day later
+	~ If the customer hasn't completed the purchase after one week,
+	  send the cart and customer details to the third-party loyalty integration.
+	  
+		- Create new Job
+			- Loop through all AbandonedCart CustomObjects
+			- Basic check against the time of abandonment and the current time
+			- If email is triggered, update isAbandondedCartEmailSent
+			- If its been great than a week since timeOfAbandonment, see below (3rd Party Integration).
+			- Run daily
+			
+		- 3rd Party Integration
+			- Controller that uses the AbandonedCart Object
+				- Prepare Customer and Product details in JSON (according to schema)
+				- Delete Custom Object now / set up job that deletes Custom Objects after 1 month
+				
+	= After successful checkout, all custom prefs are reset and all custom objects linked to that customer are deleted
+		
+
