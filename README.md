@@ -11,3 +11,6 @@ $ npm install
 ```bash
 $ npm start
 ```
+
+Runs on localhost:3000
+
