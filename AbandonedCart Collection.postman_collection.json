@@ -7,13 +7,28 @@
 	},
 	"item": [
 		{
-			"name": "localhost:3000/",
+			"name": "Get",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000",
+					"host": [
+						"localhost"
+					],
+					"port": "3000"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n   \"customer\": {\r\n      \"customerID\": \"test123test\",\r\n      \"profile\": {\r\n         \"email\": \"anotheremail@email.com\",\r\n         \"firstName\": \"Brian\",\r\n         \"lastName\": \"Sylvester\",\r\n         \"abandonedCartToken\": \"tesybdafkjalfdg\"\r\n      }\r\n   },\r\n   \"basket\": {\r\n      \"lineItems\": [\r\n         {\r\n            \"productLineItem\": [\r\n               {\r\n                  \"name\": \"Product 002\",\r\n                  \"id\": \"002\",\r\n                  \"price\": 200\r\n               },\r\n               {\r\n                  \"name\": \"Product 003\",\r\n                  \"id\": \"003\",\r\n                  \"price\": 500\r\n               },\r\n               {\r\n                  \"name\": \"Product 004\",\r\n                  \"id\": \"004\",\r\n                  \"price\": 25\r\n               }\r\n            ]\r\n         }\r\n      ]\r\n   }\r\n}",
+					"raw": "{\r\n   \"customerID\": \"test123test123\",\r\n    \"profile\": {\r\n        \"email\": \"anotheremail@email.com\",\r\n        \"firstName\": \"Brian\",\r\n        \"lastName\": \"Sylvester\",\r\n        \"abandonedCartToken\": \"tesybdafkjalfdg\"\r\n   },\r\n   \"basket\": {\r\n      \"lineItems\": [\r\n         {\r\n            \"productLineItem\": [\r\n               {\r\n                  \"name\": \"Product 002\",\r\n                  \"id\": \"002\",\r\n                  \"price\": 200\r\n               },\r\n               {\r\n                  \"name\": \"Product 003\",\r\n                  \"id\": \"003\",\r\n                  \"price\": 500\r\n               },\r\n               {\r\n                  \"name\": \"Product 004\",\r\n                  \"id\": \"004\",\r\n                  \"price\": 25\r\n               }\r\n            ]\r\n         }\r\n      ]\r\n   }\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -28,6 +43,34 @@
 					"port": "3000",
 					"path": [
 						"abandonedCart"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"customerID\":\"test123test123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/abandonedCart/delete",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"abandonedCart",
+						"delete"
 					]
 				}
 			},
