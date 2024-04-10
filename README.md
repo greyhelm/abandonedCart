@@ -12,6 +12,6 @@ $ npm install
 $ npm start
 ```
 
-Runs on localhost:3000
-Postman Collection included for making mock requests
+- Runs on localhost:3000
+- Postman Collection included for making mock requests
 
