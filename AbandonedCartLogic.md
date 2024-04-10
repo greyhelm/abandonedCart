@@ -18,13 +18,28 @@
 
 ## Implementation
 
+#### New Custom Attributes
+- Profile
+    - `abandondedCartToken (String)`
+    - `hasAbandonedCart (boolean)`
+- Session
+    - `sessionHasAbandonedCart (boolean)`
+    - `timeOfAbandonment (Date)`
+
+#### New Custom Object
+- `AbandonedCart`
+    - Customer details
+    - List of products in Cart at abandonment
+    - `timeOfAbandonment (Date)`
+    - `isAbandonedCartEmailSent (boolean)`
+
 ### Tracking Abandoned Cart
 
 #### Flag Abandoned Cart
-- Flag that cart is abandoned when;
-  - session expires
+- Flag that cart is abandoned when:
+  - `session` expires
   - Frontend Event trigger/handler when user goes back from checkout page 
-  - Backend, look at last time of customer login and if they have a currentBasket
+  - Backend, look at last time of customer login and if they have a `currentBasket`
 - set values for `session.custom.sessionHasAbandonedCart` and `session.custom.timeOfAbandonment`
 
 #### Store Abandoned Cart
