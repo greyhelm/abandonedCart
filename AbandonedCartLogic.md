@@ -40,7 +40,9 @@
   - `session` expires
   - Frontend Event trigger/handler when user goes back from checkout page 
   - Backend, look at last time of customer login and if they have a `currentBasket`
-- set values for `session.custom.sessionHasAbandonedCart` and `session.custom.timeOfAbandonment`
+- When flagged
+  - `session.custom.sessionHasAbandonedCart = true` 
+  - `session.custom.timeOfAbandonment = Date.now`
 
 #### Store Abandoned Cart
 - Create `abandonedCartToken` 
@@ -57,7 +59,7 @@
 ### Popup Trigger 1 hour after being flagged
 - Check if current `Session` has `timeOfAbandonment`
 - Set `sessionHasAbandonedCart` if needed
-- Check session.custom.sessionHasAbandonedCart
+- Check `session.custom.sessionHasAbandonedCart`
   - Frontend trigger for pop up to be shown
 
 ### Reminder Email and 3rd Party Integration
@@ -68,7 +70,7 @@
   - Basic check against the `timeOfAbandonment` and `now`
     - Check `isAbandonedCartEmailSent == false`
       - Trigger email
-      - Set `isAbandonedCartEmailSent == true`
+      - Set `isAbandonedCartEmailSent = true`
     
     - If `timeOfAbandonment` is greater than a week and `isAbandonedCartEmailSent == true`
       - Prepare data in JSON for sending to 3rd Party API using `AbandonedCart` Custom Object
@@ -83,19 +85,3 @@
 ### Additional 3rd Party Integration
 - Create Pipeline/Controller/Endpoint/etc
   - Takes `abandonedCartToken` provided to 3rd Party API to populate cart with products
-
-
-#### New Custom Attributes
-- Profile
-    - `abandondedCartToken (String)`
-    - `hasAbandonedCart (boolean)`
-- Session
-    - `sessionHasAbandonedCart (boolean)`
-    - `timeOfAbandonment (Date)`
-
-#### New Custom Object
-- `AbandonedCart`
-    - Customer details
-    - List of products in Cart at abandonment
-    - `timeOfAbandonment (Date)`
-    - `isAbandonedCartEmailSent (boolean)` 
