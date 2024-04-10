@@ -1,5 +1,0 @@
-{
-  "watch": ["abandonedcart"],
-  "ext": ".js",
-  "exec": "node index.js"
-}
